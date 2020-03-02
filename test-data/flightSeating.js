@@ -1,5 +1,5 @@
-const flights = {
-    'SA231': [
+const seats = {
+    'SA123': [
         { id: '1A', isAvailable: true },
         { id: '1B', isAvailable: true },
         { id: '1C', isAvailable: false },

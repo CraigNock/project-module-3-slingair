@@ -4,7 +4,7 @@ const confirmButton = document.getElementById('confirm-button');
 
 let selection = '';
 
-const renderSeats = () => {
+const renderSeats = (seating) => {
     document.querySelector('.form-container').style.display = 'block';
 
     const alpha = ['A', 'B', 'C', 'D', 'E', 'F'];
@@ -18,7 +18,9 @@ const renderSeats = () => {
             const seat = document.createElement('li')
             const seatOccupied = `<li><label class="seat"><span id="${seatNumber}" class="occupied">${seatNumber}</span></label></li>`
             const seatAvailable = `<li><label class="seat"><input type="radio" name="seat" value="${seatNumber}" /><span id="${seatNumber}" class="avail">${seatNumber}</span></label></li>`        
-            seat.innerHTML = seatAvailable;
+            
+            let avail = seating.find(chair => chair.id === seatNumber).isAvailable;
+            seat.innerHTML = avail ? seatAvailable : seatOccupied;
             row.appendChild(seat);
         }
     }
@@ -43,18 +45,52 @@ const renderSeats = () => {
 const toggleFormContent = (event) => {
     const flightNumber = flightInput.value;
     console.log('toggleFormContent: ', flightNumber);
-    
-    // TODO: contact the server to get the seating availability
-    //      - only contact the server if the flight number is this format 'SA###'.
-    //      - Do I need to create an error message if the number is not valid?
-    
-    // TODO: Pass the response data to renderSeats to create the appropriate seat-type.
-    renderSeats();
+    let seating = undefined;
+    if (flightNumber.length < 5 
+        || flightNumber[0].toLowerCase() !== 's' 
+        || flightNumber[1].toLowerCase() !== 'a'
+        || !((parseInt(flightNumber[2]) + parseInt(flightNumber[3]) + parseInt(flightNumber[4])) >= 0)
+        ){
+        console.log('invalid flight number'); //replace with proper error later
+    } else {
+        fetch(`/seat-check/${flightNumber}`)
+            .then(data => data.json())
+            .then(data => {
+                console.log(data.flightSeats);
+                seating = data.flightSeats;
+                renderSeats(seating);
+            })
+    }; 
 }
 
-const handleConfirmSeat = () => {
-    // TODO: everything in here!
+const handleConfirmSeat = (event) => {
+    event.preventDefault();
+    
+    let details = {
+        flight: flight.value,
+        seat: selection,
+        firstName: givenName.value,
+        surname: surname.value,
+        email:email.value
+    };
+    console.log(details);
+    fetch('/confirmed', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Accept" : "application/json"
+        },
+        body:JSON.stringify(details)
+    })
+    .then(data => data.json())
+    .then(data => {
+        console.log(data);
+        // let querystring = data.data['seat'];
+        let querystring = '88a33c23-3332-4ef2-bd71-be7a6430485f';
+        window.location.href = `http://localhost:8000/seat-select/confirmed.html?id=${querystring}`;
+        // window.location.href = `http://localhost:8000/seat-select/confirmed/${querystring}.html`;
 
+    })
 }
 
 flightInput.addEventListener('blur', toggleFormContent);
