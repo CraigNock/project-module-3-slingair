@@ -47,6 +47,7 @@ const toggleFormContent = (event) => {
     console.log('toggleFormContent: ', flightNumber);
     let seating = undefined;
     if (flightNumber.length < 5 
+        //nobody likes having to capitalize flight numbers.
         || flightNumber[0].toLowerCase() !== 's' 
         || flightNumber[1].toLowerCase() !== 'a'
         || !((parseInt(flightNumber[2]) + parseInt(flightNumber[3]) + parseInt(flightNumber[4])) >= 0)

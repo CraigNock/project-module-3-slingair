@@ -9,7 +9,6 @@ const PORT = process.env.PORT || 8000;
 const {seats} = require('./test-data/flightSeating');
 const {reservations} = require('./test-data/reservations');
 
-let lastId = '';
 
 const seatCheckHandle = (req, res) => {
     let flight = req.params.flight.toUpperCase();
