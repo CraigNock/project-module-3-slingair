@@ -46,7 +46,7 @@ There is a folder called `notes` that contains possible hints on what to do next
 
 ---
 
-## Requirements for Poject Completion
+## Requirements for Project Completion
 
 In order for your project to be considered `DONE` (passing grade), you should have a working MVP of the app.
 

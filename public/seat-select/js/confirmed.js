@@ -1,4 +1,5 @@
 
+const conIdNum = document.getElementById('idNum');
 const conFlight = document.getElementById('flight');
 const conSeat = document.getElementById('seat');
 const conName = document.getElementById('name');
@@ -21,6 +22,7 @@ fetch('/reservation', {
     .then(data => data.json())
     .then(data => {
         userData = data.userData;
+        conIdNum.innerText = userData.id;
         conFlight.innerText = userData.flight;
         conSeat.innerText = userData.seat;
         conName.innerText = userData.givenName + ' ' + userData.surname;

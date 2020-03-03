@@ -4,7 +4,30 @@ const confirmButton = document.getElementById('confirm-button');
 
 let selection = '';
 
+
+//fetch to get array of flight numbers to populate dropdown
+//select and options, onchange
+//implement dropdown
+//change blur? on change?
+
+fetch('/seat-select/flights')
+    .then(data => data.json())
+    .then(data => {
+        let flights = data.flights;
+        // console.log(flights);
+        flights.forEach(flight => {
+            let flightNum = document.createElement('option');
+            flightNum.innerText = `${flight}`;
+
+            document.getElementById('flight').appendChild(flightNum);
+        })
+    }
+    )
+
+
+
 const renderSeats = (seating) => {
+    seatsDiv.innerHTML = '';
     document.querySelector('.form-container').style.display = 'block';
 
     const alpha = ['A', 'B', 'C', 'D', 'E', 'F'];
@@ -43,7 +66,7 @@ const renderSeats = (seating) => {
 
 
 const toggleFormContent = (event) => {
-    const flightNumber = flightInput.value;
+    const flightNumber = flight.value;
     console.log('toggleFormContent: ', flightNumber);
     let seating = undefined;
     if (flightNumber.length < 5 
@@ -62,7 +85,13 @@ const toggleFormContent = (event) => {
                 renderSeats(seating);
             })
     }; 
-}
+};
+
+const handleGetRes = (event) => {
+    event.preventDefault();
+    let inputId = rescheck.value;
+    window.location.href = `http://localhost:8000/seat-select/confirmed.html?id=${inputId}`;
+};
 
 const handleConfirmSeat = (event) => {
     event.preventDefault();
@@ -85,13 +114,12 @@ const handleConfirmSeat = (event) => {
     })
     .then(data => data.json())
     .then(data => {
-        console.log(data);
-        // let querystring = data.data['seat'];
-        let querystring = '88a33c23-3332-4ef2-bd71-be7a6430485f';
+        console.log(data.newUser);
+        let querystring = data.newUser['id'];
+        // let querystring = '88a33c23-3332-4ef2-bd71-be7a6430485f';
         window.location.href = `http://localhost:8000/seat-select/confirmed.html?id=${querystring}`;
-        // window.location.href = `http://localhost:8000/seat-select/confirmed/${querystring}.html`;
 
     })
 }
 
-flightInput.addEventListener('blur', toggleFormContent);
+// flightInput.addEventListener('blur', toggleFormContent);
