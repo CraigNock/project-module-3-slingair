@@ -7,7 +7,7 @@ const request = require('request-promise');
 
 const PORT = process.env.PORT || 8000;
 
-const {seatCheckHandle, confirmedHandle, flightListHandle, reservationHandle, grabReserve} = require('./handlers');
+const {seatCheckHandle, confirmedHandle, flightListHandle, reservationHandle} = require('./handlers');
 
 const {seats} = require('./test-data/flightSeating');
 const {reservations} = require('./test-data/reservations');

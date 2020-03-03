@@ -67,7 +67,7 @@ const renderSeats = (seating) => {
 
 const toggleFormContent = (event) => {
     const flightNumber = flight.value;
-    console.log('toggleFormContent: ', flightNumber);
+    // console.log('toggleFormContent: ', flightNumber);
     let seating = undefined;
     if (flightNumber.length < 5 
         //nobody likes having to capitalize flight numbers.
@@ -80,8 +80,8 @@ const toggleFormContent = (event) => {
         fetch(`/seat-check/${flightNumber}`)
             .then(data => data.json())
             .then(data => {
-                console.log(data.flightSeats);
-                seating = data.flightSeats;
+                // console.log(data.seatList);
+                seating = data.seatList;
                 renderSeats(seating);
             })
     }; 
@@ -114,8 +114,9 @@ const handleConfirmSeat = (event) => {
     })
     .then(data => data.json())
     .then(data => {
-        console.log(data.newUser);
-        let querystring = data.newUser['id'];
+        console.log(data);
+        console.log('confirm '+ data.userRes);
+        let querystring = data.userRes['id'];
         // let querystring = '88a33c23-3332-4ef2-bd71-be7a6430485f';
         window.location.href = `http://localhost:8000/seat-select/confirmed.html?id=${querystring}`;
 
