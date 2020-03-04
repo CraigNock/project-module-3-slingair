@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0, minimal-ui" />
+        <link rel="stylesheet" type="text/css" href="../css/styles.css" />
+        <title>Admin</title>
+    </head>
+    <body>
+        <div class='main'>
+            <header class='header'>
+                <h1 class='header-logo'>Air Slingshot</h1>
+            </div>
+            <div class="res-select">
+                <form class="resform" onsubmit="handleGetRes(event)">
+                    <label for="rescheck">Check reservation:<br> </label>
+                    <input name="rescheck" id="rescheck" class="rescheck" type="text" placeholder="enter email or id #" />
+                    <button class="submit" type="submit">Submit</button>
+                    <span class="invalid" id="invalid"> * Invalid Id/Email *</span>
+                </form>
+            </div>
+            <div class="flight-select">
+                <label for="flight">Flight Number :</label>
+                <select name="flight" id="flight" class="flight-drop" onchange="toggleFormContent(Event)">
+                    <option value="undefined">Flight #</option>
+                </select>
+            </div>
+            <div class="admin-content">
+                <div class="form-container">
+                    <h2>Select seat</h2>
+                    <form id="seats" class="content" name="salesForm" >
+                        <div class='form-content plane'>
+                            <div id="seats-section"></div>
+                        </div>
+                        
+                    </form>
+                </div>
+                <table class="seats-table">
+                    <tr>
+                        <th>Seat</th>
+                        <th>Surname</th>
+                    </tr>
+                    <tr>
+                        <td>4D</td>
+                        <td>Smith</td>
+                    </tr>
+                </table>
+                <div class="content confirmation">
+                    <div class="user">
+                        <ul class="user-info">
+                            <li>Id#:<span id="idNum"></span></li>
+                            <li>Flight #:<span id="flightNum"></span> seat #: <span id="seat"></span></li>
+                            <li>Name:<span id="name"></span></li>
+                            <li>Email:<span id="email"></span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../js/admin.js"></script>
+    </body>
+</html>

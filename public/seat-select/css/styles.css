@@ -33,12 +33,23 @@ main {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 800px;
+    /* width: 800px; */
     margin: 0 auto;
 }
 .content.confirmation {
     margin: 200px auto 120px;
+    width: fit-content;
 }
+
+.seats-table, td, th {
+    font-size: 1rem;
+    border: 1px solid var(--cadmium-red);
+    padding: 1rem;
+}
+th {
+    font-weight: bold;
+}
+
 .footer-logo {
     background: url(../images/air-sling.png) no-repeat;
     background-size: contain;
@@ -282,6 +293,10 @@ input {
 .lds-dual-ring {
     top: 8px;
     left: calc(52% - 15px);
+}
+
+.admin-content {
+    display: flex;
 }
 
 .form-container { display: none; }

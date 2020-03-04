@@ -109,13 +109,24 @@ const reservationHandle = async (req, res) => {
     };
     
 };
-// const grabReserve = async (rId) => {
-    // let index = reservations.findIndex(user => user.id === rId);
-    // console.log(index);
-    // return reservations[index];
-    
-// };
+
+const passengerHandle = async (req, res) => {
+    console.log('beef');
+    flightNum = req.params.flight;
+    let i = 0;
+    let userArray = [];
+    userPull = [1];
+    while (userPull.length) {
+        userPull = await request(`https://journeyedu.herokuapp.com/slingair/users?limit=25&start=${i}`);
+        userPull = JSON.parse(userPull);
+        userArray = userArray.concat(userPull);
+        i = i + 25;
+    };
+    console.log(userArray.length);
+    res.send({
+        userArray: userArray
+    });
+};
 
 
-
-module.exports = {seatCheckHandle, confirmedHandle, flightListHandle, reservationHandle};
+module.exports = {seatCheckHandle, confirmedHandle, flightListHandle, reservationHandle, passengerHandle};
