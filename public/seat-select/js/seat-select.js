@@ -1,15 +1,12 @@
 const flightInput = document.getElementById('flight');
 const seatsDiv = document.getElementById('seats-section');
 const confirmButton = document.getElementById('confirm-button');
+const invalid = document.getElementById('invalid');
 
 let selection = '';
 
 
-//fetch to get array of flight numbers to populate dropdown
-//select and options, onchange
-//implement dropdown
-//change blur? on change?
-
+//on load gets flight numbers
 fetch('/seat-select/flights')
     .then(data => data.json())
     .then(data => {
@@ -25,7 +22,7 @@ fetch('/seat-select/flights')
     )
 
 
-
+//renders seats to select
 const renderSeats = (seating) => {
     seatsDiv.innerHTML = '';
     document.querySelector('.form-container').style.display = 'block';
@@ -64,7 +61,7 @@ const renderSeats = (seating) => {
     });
 }
 
-
+//fetches flight info on selection, initializes seat rendering
 const toggleFormContent = (event) => {
     const flightNumber = flight.value;
     // console.log('toggleFormContent: ', flightNumber);
@@ -87,15 +84,33 @@ const toggleFormContent = (event) => {
     }; 
 };
 
+//checks id or email, sends to confirm/reservation page
 const handleGetRes = (event) => {
     event.preventDefault();
-    let inputId = rescheck.value;
-    window.location.href = `http://localhost:8000/seat-select/confirmed.html?id=${inputId}`;
+    let resId = rescheck.value;
+    fetch('/reservation', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Accept" : "application/json"
+        },
+        body:JSON.stringify({resId})
+    })
+        .then(data => data.json())
+        .then(data => {
+            if (data.status !== '200'){
+                console.log('bad id');
+                invalid.style.display = 'inline-block';
+            } else {
+                let querystring = data.userData['id'];
+                window.location.href = `http://localhost:8000/seat-select/confirmed.html?id=${querystring}`;
+            }
+        });
 };
 
+//sends new reservation/user info to server, redirects to confirmation page
 const handleConfirmSeat = (event) => {
     event.preventDefault();
-    
     let details = {
         flight: flight.value,
         seat: selection,
@@ -103,7 +118,7 @@ const handleConfirmSeat = (event) => {
         surname: surname.value,
         email:email.value
     };
-    console.log(details);
+    // console.log(details);
     fetch('/confirmed', {
         method: 'POST',
         headers: {
@@ -117,9 +132,7 @@ const handleConfirmSeat = (event) => {
         console.log(data);
         console.log('confirm '+ data.userRes);
         let querystring = data.userRes['id'];
-        // let querystring = '88a33c23-3332-4ef2-bd71-be7a6430485f';
         window.location.href = `http://localhost:8000/seat-select/confirmed.html?id=${querystring}`;
-
     })
 }
 

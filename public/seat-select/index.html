@@ -12,10 +12,11 @@
                 <h1 class='header-logo'>Air Slingshot</h1>
             </div>
             <div class="res-select">
-                <form onsubmit="handleGetRes(event)">
-                    <label for="rescheck">Already have a reservation? View here: </label>
+                <form class="resform" onsubmit="handleGetRes(event)">
+                    <label for="rescheck">Already have a reservation?<br> View here: </label>
                     <input name="rescheck" id="rescheck" class="rescheck" type="text" placeholder="enter email or id #" />
                     <button class="submit" type="submit">Submit</button>
+                    <span class="invalid" id="invalid"> * Invalid Id/Email *</span>
                 </form>
             </div>
             <div class="flight-select">

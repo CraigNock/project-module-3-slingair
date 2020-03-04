@@ -90,12 +90,13 @@ const confirmedHandle = async (req, res) => {
 const reservationHandle = async (req, res) => {
     try{
         let resId = req.body;
-    //  console.log(resId.resId);
+        // console.log(resId.resId);
         resId = resId.resId
         let userData = await request(`https://journeyedu.herokuapp.com/slingair/users/${resId}`);
         userData = JSON.parse(userData);
+        // console.log(userData);
         userData = userData.data;
-        
+        // console.log(userData);
         res.status(200).send({
         status: '200',
         userData: userData
@@ -103,7 +104,7 @@ const reservationHandle = async (req, res) => {
         
     } catch(err) {
         res.status(400).send({
-                status: '400',
+            status: '400'
         })
     };
     
