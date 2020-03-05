@@ -16,7 +16,7 @@ let singleFlight = [];
 
 document.querySelector('.form-container').style.display = 'block';
 
-//checks id or email, sends to confirm/reservation page
+//checks id or email, sends to confirm/reservation box (somewhat unecessary after pulling in all data for flights)
 const handleGetRes = (event) => {
     event.preventDefault();
     let resId = rescheck.value;
@@ -68,7 +68,7 @@ fetch(`/passengers`)
 
 const clearData = () => {
     seatsTable.innerHTML = '';
-    
+
     conIdNum.innerText = '';
     conFlightNum.innerText = '';
     conSeat.innerText = '';
