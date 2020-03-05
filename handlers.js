@@ -1,5 +1,5 @@
-const {seats} = require('./test-data/flightSeating');
-const {reservations} = require('./test-data/reservations');
+// const {seats} = require('./test-data/flightSeating');
+// const {reservations} = require('./test-data/reservations');
 const request = require('request-promise');
 
 //gets list of flights
@@ -112,7 +112,6 @@ const reservationHandle = async (req, res) => {
 
 const passengerHandle = async (req, res) => {
     console.log('beef');
-    flightNum = req.params.flight;
     let i = 0;
     let userArray = [];
     userPull = [1];

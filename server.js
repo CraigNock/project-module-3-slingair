@@ -33,7 +33,7 @@ express()
 
     .post('/reservation', reservationHandle)
 
-    .get('/passengers/:flight', passengerHandle)
+    .get('/passengers', passengerHandle)
     
     .get('/', (req, res) => {
         res.redirect('/seat-select')

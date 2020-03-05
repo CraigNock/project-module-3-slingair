@@ -10,6 +10,9 @@ const conSeat = document.getElementById('seat');
 const conName = document.getElementById('name');
 const conEmail = document.getElementById('email');
 
+let flightsData = [];
+let singleFlight = [];
+
 document.querySelector('.form-container').style.display = 'block';
 
 //checks id or email, sends to confirm/reservation page
@@ -55,15 +58,31 @@ fetch('/seat-select/flights')
     });
 
 
-let flightData = 'flying beef';
 
+// const pullPassengers = (flightNum) => {
+fetch(`/passengers`)
+    .then(console.log('passengaaaars'))
+    .then(data => data.json())
+    .then(data => {
+        // console.log(data.userArray);
+        flightsData = data.userArray;
+        
+    })
+// };
 
 
 //fetches flight info on selection, initializes seat rendering
 const toggleFormContent = (event) => {
     const flightNumber = flight.value;
-    // console.log('toggleFormContent: ', flightNumber);
-    pullPassengers(flightNumber);
+    singleFlight = [];
+    flightFilter(flightNumber);
+
+    conIdNum.innerText = '';
+    conFlightNum.innerText = '';
+    conSeat.innerText = '';
+    conName.innerText = '';
+    conEmail.innerText = '';
+
     let seating = undefined;
     fetch(`/seat-check/${flightNumber}`)
         .then(data => data.json())
@@ -75,11 +94,14 @@ const toggleFormContent = (event) => {
     
 };
 
-const pullPassengers = (flightNum) => {
-    fetch(`/passengers/${flightNum}`)
-        .then(
-            console.log('passengaaaars')
-        )
+//populates an array with user data for a single flight
+const flightFilter = (flightNum) => {
+    flightsData.forEach(passenger => {
+        if (passenger.flight === flightNum) {
+            singleFlight.push(passenger);
+        }
+    });
+    // console.log(singleFlight);
 };
 
 
@@ -115,23 +137,17 @@ const renderSeats = (seating) => {
             document.getElementById(seat.value).classList.add('selected');
 
             seatUserGrab(selection);
-            //pull data to confirm box
         }
     });
 }
-
-
-//*pull all users in flight beforehand instead */
-// const seatUserGrab = (seatId) => {
-//     fetch('/seat-user')
-//         .then(console.log('beef2'))
-//     //     .then(data => data.json())
-//     //     .then(data => {
-//     //         userData = data.userData;
-//     //         conIdNum.innerText = userData.id;
-//     //         conFlightNum.innerText = userData.flight;
-//     //         conSeat.innerText = userData.seat;
-//     //         conName.innerText = userData.firstName + ' ' + userData.surname;
-//     //         conEmail.innerText = userData.email;
-//     // });
-// }
+//fills user-info box 
+const seatUserGrab = (seatId) => {
+    let passenger = singleFlight.find(reservation => 
+        reservation.seat === `${seatId}`
+    );
+    conIdNum.innerText = passenger.id;
+    conFlightNum.innerText = passenger.flight;
+    conSeat.innerText = passenger.seat;
+    conName.innerText = passenger.firstName + ' ' + passenger.surname;
+    conEmail.innerText = passenger.email;
+}
