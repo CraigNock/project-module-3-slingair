@@ -49,6 +49,10 @@ main {
 th {
     font-weight: bold;
 }
+th, td {
+    width: 7rem;
+    text-align: center;
+}
 
 .footer-logo {
     background: url(../images/air-sling.png) no-repeat;
@@ -239,7 +243,7 @@ input {
     border-radius: 5px;
     margin: auto 12px auto 18px;
     padding: 30px;
-    width: 400px;
+    /* width: 400px; */
 }
 
 .form-item {

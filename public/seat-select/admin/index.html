@@ -9,7 +9,7 @@
     <body>
         <div class='main'>
             <header class='header'>
-                <h1 class='header-logo'>Air Slingshot</h1>
+                <a href="./index.html"><h1 class='header-logo'>Air Slingshot</h1></a>
             </div>
             <div class="res-select">
                 <form class="resform" onsubmit="handleGetRes(event)">
@@ -35,16 +35,16 @@
                         
                     </form>
                 </div>
-                <table class="seats-table">
-                    <tr>
-                        <th>Seat</th>
-                        <th>Surname</th>
-                    </tr>
-                    <tr>
-                        <td>.</td>
-                        <td>.</td>
-                    </tr>
-                </table>
+                <div>
+                    <table>
+                        <tr>
+                            <th>Seat</th>
+                            <th>Surname</th>
+                        </tr>
+                    </table>
+                    <table class="seats-table" id="seatsTable">
+                    </table>
+                </div>
                 <div class="content confirmation">
                     <div class="user">
                         <ul class="user-info">

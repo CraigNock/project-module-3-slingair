@@ -2,6 +2,7 @@
 const flightInput = document.getElementById('flight');
 const seatsDiv = document.getElementById('seats-section');
 const invalid = document.getElementById('invalid');
+const seatsTable = document.getElementById('seatsTable');
 
 //data box
 const conIdNum = document.getElementById('idNum');
@@ -52,36 +53,35 @@ fetch('/seat-select/flights')
         flights.forEach(flight => {
             let flightNum = document.createElement('option');
             flightNum.innerText = `${flight}`;
-
             document.getElementById('flight').appendChild(flightNum);
         })
     });
 
-
-
-// const pullPassengers = (flightNum) => {
 fetch(`/passengers`)
-    .then(console.log('passengaaaars'))
     .then(data => data.json())
     .then(data => {
         // console.log(data.userArray);
         flightsData = data.userArray;
         
     })
-// };
 
 
-//fetches flight info on selection, initializes seat rendering
-const toggleFormContent = (event) => {
-    const flightNumber = flight.value;
-    singleFlight = [];
-    flightFilter(flightNumber);
-
+const clearData = () => {
+    seatsTable.innerHTML = '';
+    
     conIdNum.innerText = '';
     conFlightNum.innerText = '';
     conSeat.innerText = '';
     conName.innerText = '';
     conEmail.innerText = '';
+};
+
+//fetches flight info on selection, initializes seat rendering
+const toggleFormContent = (event) => {
+    clearData();
+    const flightNumber = flight.value;
+    singleFlight = [];
+    flightFilter(flightNumber);
 
     let seating = undefined;
     fetch(`/seat-check/${flightNumber}`)
@@ -99,10 +99,18 @@ const flightFilter = (flightNum) => {
     flightsData.forEach(passenger => {
         if (passenger.flight === flightNum) {
             singleFlight.push(passenger);
+            let row = seatsTable.insertRow(-1);
+            let cell1 = row.insertCell(0);
+            let cell2 = row.insertCell(1);
+            cell1.innerText = `${passenger.seat}`;
+            cell2.innerText = `${passenger.surname}`;
         }
     });
-    // console.log(singleFlight);
+    console.log(singleFlight);
 };
+
+
+
 
 
 //renders seats to select
