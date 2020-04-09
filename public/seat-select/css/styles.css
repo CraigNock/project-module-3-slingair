@@ -33,12 +33,27 @@ main {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 800px;
+    /* width: 800px; */
     margin: 0 auto;
 }
 .content.confirmation {
     margin: 200px auto 120px;
+    width: fit-content;
 }
+
+.seats-table, td, th {
+    font-size: 1rem;
+    border: 1px solid var(--cadmium-red);
+    padding: 1rem;
+}
+th {
+    font-weight: bold;
+}
+th, td {
+    width: 7rem;
+    text-align: center;
+}
+
 .footer-logo {
     background: url(../images/air-sling.png) no-repeat;
     background-size: contain;
@@ -56,7 +71,7 @@ h1, h2, h3, label, button {
     font-size: 32px;
     text-align: center;
 }
-p, a, li, blockquote, input {
+p, span, a, li, blockquote, input {
     font-family: var(--content-font);
 }
 .main {
@@ -73,22 +88,47 @@ p, a, li, blockquote, input {
     height: 60px;
     width: 550px;
 }
-.flight-select {
+.flight-select, .res-select {
     background: var(--cadmium-red);
-    height: 80px;
+    height: fit-content;
     display: flex;
     align-items: center;
     padding: var(--page-padding);
     margin-bottom: var(--page-padding);
 }
+.resform{
+    height: fit-content;
+    margin: 0;
+    padding: 0;
+}
 .flight-select input {
     width: 125px;
     margin-left: var(--page-padding);
 }
+.submit {
+    background: var(--cadmium-red);
+    border-radius: 5px;
+    border-color: var(--selective-yellow);
+    margin: .5rem .5rem;
+    font-size: 22px;
+}
 
+.invalid {
+    display: none;
+    color: whitesmoke;
+}
+
+.flight-drop{
+    font-size: 1.2rem;
+    margin-left: var(--page-padding);
+    height: 42px;
+    border: 2px solid var(--orange);
+    border-radius: 4px;
+    padding: 0 12px;
+}
 input {
     font-size: 24px;
-    height: 42px;
+    height: 45px;
     border: 2px solid var(--orange);
     border-radius: 4px;
     padding: 0 12px;
@@ -203,7 +243,7 @@ input {
     border-radius: 5px;
     margin: auto 12px auto 18px;
     padding: 30px;
-    width: 400px;
+    /* width: 400px; */
 }
 
 .form-item {
@@ -257,6 +297,10 @@ input {
 .lds-dual-ring {
     top: 8px;
     left: calc(52% - 15px);
+}
+
+.admin-content {
+    display: flex;
 }
 
 .form-container { display: none; }

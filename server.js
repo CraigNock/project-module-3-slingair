@@ -3,8 +3,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const request = require('request-promise');
 
 const PORT = process.env.PORT || 8000;
+
+const {seatCheckHandle, confirmedHandle, flightListHandle, reservationHandle, passengerHandle} = require('./handlers');
+
+const {seats} = require('./test-data/flightSeating');
+const {reservations} = require('./test-data/reservations');
+
 
 express()
     .use(function(req, res, next) {
@@ -18,6 +25,22 @@ express()
     .use(express.urlencoded({extended: false}))
     
     // endpoints
+    .get('/seat-select/flights', flightListHandle)
+
+    .get('/seat-check/:flight', seatCheckHandle)
+
+    .post('/confirmed', confirmedHandle)
+
+    .post('/reservation', reservationHandle)
+
+    .get('/passengers', passengerHandle)
+    
+    .get('/', (req, res) => {
+        res.redirect('/seat-select')
+    })
+    .get('/*', (req, res) => {
+        res.send('404')
+    })
 
     .use((req, res) => res.send('Not Found'))
     .listen(PORT, () => console.log(`Listening on port ${PORT}`));
