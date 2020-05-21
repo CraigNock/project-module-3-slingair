@@ -5,9 +5,14 @@
 ---
 
 ## The App
+Project completed as a part of Concordia Bootcamps Full-Stack Web Development Diploma.
+Starting with a simulation of recieving another developer's unfamiliar barebones code, turn project into a function app and add new features.
+
+Welcome to sling air! Book a flight, check your reservation and see all the different flight's bookings data through the Admin Page.
+Note: Project was build using RESTful access to an external database for functionality.
 
 ### Screenshots
-### Old
+
 <img src='public\seat-select\images\screenshots\seatselectnew.png' style='float:left;width:48%;margin-right:4%;' />
 <img src='public\seat-select\images\screenshots\confirmnew.png' style='float:left;width:48%' />
 
@@ -22,7 +27,7 @@
 ---
 ### Functionality
 
-- Origionally when a user navigates to `/seat-select` he/she is presented with an input to enter the flight number. Updated to dropdown.
+- Originally when a user navigates to `/seat-select` he/she is presented with an input to enter the flight number. Updated to dropdown.
 - With the flight number selected, makes a request to the server for the seating availability on that flight.
 - When a response with seating is received, displays the seating input as well as the form requesting user's information.
 - User selects a seat, enters information and clicks 'Confirm'
